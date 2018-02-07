@@ -54,6 +54,13 @@ public class War {
                     /* TODO DYLAN */
                     //Choix de lancer une attaque ou pas
                     // Aucune idée. Random pondéré en fonction du nombre de region controllé par l'IA peut etre ?
+                	try {
+                        do {
+                        	//TODO
+                        } while (warDecision < 0 || warDecision > 1);
+                    } catch (Exception ex) {
+
+                    }
                 }
 
                 System.out.println("\n==========================================================\n");
@@ -90,6 +97,14 @@ public class War {
                         /* TODO DYLAN */
                         // Choix de la région attaquante
                         // choisir une region forte, et/ou qui a des adjacences enemies faible
+                    	try {
+                            do {
+                                //TODO
+                            }
+                            while (selectedStartRegionIndex >= warStartRegions.size() || selectedStartRegionIndex < 0);
+                        } catch (Exception ex) {
+
+                        }
                     }
                     System.out.println("\n==========================================================\n");
                 }
@@ -131,6 +146,13 @@ public class War {
                         /* TODO DYLAN */
                         //Selection d'une region a attaquer
                         //Choisir la region la plus faible possible
+                    	try {
+                            do {
+                                //TODO
+                            } while (selectedEndRegionIndex >= allWarTargets.size() || selectedEndRegionIndex < 0);
+                        } catch (Exception ex) {
+
+                        }
                     }
 
                     System.out.println("\n==========================================================\n");
@@ -172,7 +194,14 @@ public class War {
 
                     if(!player.getIsHuman()) {
                         /* TODO DYLAN */
-                        // Toujours 0
+                        // Toujours action 0
+                    	try {
+                            do {
+                                //TODO
+                            } while (selectedMoveIndex >= availableMoves.size() || selectedMoveIndex < 0);
+                        } catch (Exception ex) {
+
+                        }
                     }
 
                     System.out.println("\n==========================================================\n");
@@ -201,6 +230,14 @@ public class War {
                 if(!player.getIsHuman()) {
                     /* TODO DYLAN */
                     // Aucune idée... random ?
+                	// Most Efficient Tactical Attack ?
+                	try {
+                        do {
+                            //TODO
+                        } while (nbAttack < 0 || nbAttack > Math.min(3, startRegion.getDeployedTroops()));
+                    } catch (Exception ex) {
+
+                    }
                 }
 
                 Region endRegion = mapObj.getRegionByName(endRegionName);
@@ -223,6 +260,13 @@ public class War {
                     /* TODO DYLAN */
                     // Choix du nombre de troupes pour la défenses
                     // Aucune idée...
+                	try {
+                        do {
+                            //TODO
+                        } while (nbDef < 0 || nbDef > Math.min(2, endRegion.getDeployedTroops()));
+                    } catch (Exception ex) {
+
+                    }
                 }
 
 

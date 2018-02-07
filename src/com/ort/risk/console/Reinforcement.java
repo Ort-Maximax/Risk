@@ -53,6 +53,13 @@ public class Reinforcement {
                     /* TODO DYLAN */
                     // Choix de renforcer ou non ce tour
                     // Aucune idée
+                	try {
+                        do {
+                            //TODO
+                        } while (reinfDecision < 0 || reinfDecision > 1);
+                    } catch (Exception ex) {
+
+                    }
                 }
 
             }
@@ -88,6 +95,14 @@ public class Reinforcement {
                         /* TODO DYLAN */
                         //Choix de la région à renforcer
                         // Choisir une région qui a des adjacences avec avec des region enemies forte / avec des regions allié faible
+                    	try {
+                            do {
+                                //TODO
+                            }
+                            while (selectedStartRegionIndex >= reinforcementRegions.size() || selectedStartRegionIndex < 0);
+                        } catch (Exception ex) {
+
+                        }
                     }
                     System.out.println("\n==========================================================\n");
                 }
@@ -129,6 +144,13 @@ public class Reinforcement {
                         /* TODO DYLAN */
                         // CHoix de la region qui fournis les troupes du renforcement
                         // CHoisir une région si possible qui n'a pas d'adjacences avec une region enemies, et un nb de troupe confortable
+                    	try {
+                            do {
+                            	//TODO
+                            } while (selectedEndRegionIndex >= allReinfProviders.size() || selectedEndRegionIndex < 0);
+                        } catch (Exception ex) {
+
+                        }
                     }
                 }
 
@@ -163,6 +185,13 @@ public class Reinforcement {
                     /* TODO DYLAN */
                     // CHoix du nb de troupe a deplacer
                     // Choisir un nombre en fonction de "l'urgence" du renforcement = si la region a renforcer est entouré de region enemie tres forte, mettre un gros chiffre
+                	try {
+                        do {
+                            //TODO
+                        } while (nbTroops > endRegion.getDeployedTroops() - 1 || nbTroops < 1);
+                    } catch (Exception ex) {
+
+                    }
                 }
 
                 reinfMove.execute(startRegion, endRegion, nbTroops);

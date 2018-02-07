@@ -70,6 +70,13 @@ public class Deployment {
                     /* TODO DYLAN */
                     // CHoix de la région sur laquelle deployé des troupes
                     // Choisir une région faible avec des adjacences enemies
+                	try {
+                        do {
+                            //TODO
+                        } while (selectedRegionIndex >= playerRegions.size() || selectedRegionIndex < 0);
+                    } catch (Exception ex) {
+
+                    }
                 }
                 target = playerRegions.get(selectedRegionIndex);
 
@@ -91,6 +98,13 @@ public class Deployment {
                     /* TODO DYLAN */
                     //Choix du nombre de troupes à y deployer
                     //Choisir en fonction de région faible à renforcer, et du nombre de troupe total à deployer
+                	try {
+                        do {
+                            //TODO
+                        } while (nbTroopsToDeploy < min || nbTroopsToDeploy > nbDeployMax);
+                    } catch (Exception ex) {
+
+                    }
                 }
             }
 
