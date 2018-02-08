@@ -212,12 +212,46 @@ public class Play {
                     }
 
                     if (!currentPlayer.getIsHuman()) {
-                        /* TODO DYLAN */
-                        //L'ordi doit choisir une region non occupé
-                        //Ca serait bien si il pouvoir choisir des regions de la meme zone, tant que toutes les regions de la zone sont libre
-                        //Dans tout les cas, ils faut qu'il privilegie les adjacences
-                        //Une facon simple de faire, est de lui faire prendre une premiere region random
-                        //Puis de regarder dans ses frontiere, de prendre la regionEnd de la frontiere, et ainsi de suite
+                    	try {
+                            do {
+                            	if(currentPlayer.getControlledRegions() == null)
+                            	{
+                            		selectedRegionIndex = (int) ((Math.random() * (notOccupiedRegions.size())));
+                            	}
+                            	else
+                            	{
+                            		List<Region> controlledRegions = currentPlayer.getControlledRegions();
+                            		Region r = new Region();
+                            		for(int i=0; i < controlledRegions.size(); i++ )
+                            		{
+                            			r = controlledRegions.get(i);
+                            		}
+                            		List<Frontier> frontierR = r.getFrontiers();
+                            		Frontier f = new Frontier();
+                            		for(int i=0; i < frontierR.size(); i++) 
+                            		{
+                            			f = frontierR.get(i);
+                            		}
+                            		String regionEndName = f.getRegionEndName();
+                            		
+                            		for(int i=0; i < notOccupiedRegions.size(); i++)
+                            		{
+                            			if(notOccupiedRegions.get(i).getName() == regionEndName)
+                            			{
+                            				selectedRegionIndex = i;
+                            				break;
+                            			}
+                            			else
+                            			{
+                            				selectedRegionIndex = (int) ((Math.random() * (notOccupiedRegions.size())));
+                            			}
+                            		}
+                            	}
+                            } while (selectedRegionIndex >= notOccupiedRegions.size() || selectedRegionIndex < 0);
+                            System.out.println(notOccupiedRegions.get(selectedRegionIndex).getName());
+                        } catch (Exception ex) {
+
+                        }
                     }
 
                 }
@@ -282,9 +316,35 @@ public class Play {
                     }
 
                     if (!currentPlayer.getIsHuman()) {
-                        /* TODO DYLAN */
-                        //L'ordi doit decider sur quelles region repartir ses troupes
-                        // Deployer de préférence sur les regions qui ont au moins une frontiere avec une région enemies
+                    	try {
+                            do {
+                            	List<Region> controlledRegions = currentPlayer.getControlledRegions();
+		                    	Region r = new Region();
+		                		for(int i=0; i < controlledRegions.size(); i++ )
+		                		{
+		                			r = controlledRegions.get(i);
+		                			List<Frontier> frontierR = r.getFrontiers();
+		                			Frontier f = new Frontier();
+		                    		for(int j=0; j < frontierR.size(); j++) 
+		                    		{
+		                    			f = frontierR.get(j);
+		                    			String regionEndName = f.getRegionEndName();
+		                    			boolean isOccupied = mapObj.getRegionByName(regionEndName).getIsOccupied();
+		                    			if(isOccupied == true && r.getDeployedTroops() == 1)
+		                    			{
+		                    				selectedRegionIndex = i;
+                            				break;
+		                    			}
+		                    			else
+		                    			{
+		                    				selectedRegionIndex = i+1;
+		                    			}
+		                    		}
+		                		}
+                            } while (selectedRegionIndex >= playerRegions.size() || selectedRegionIndex < 0);
+                		} catch (Exception ex) {
+                			
+                		}
                     }
 
                     //Select number of troop to deploy
@@ -302,9 +362,21 @@ public class Play {
                     }
 
                     if (!currentPlayer.getIsHuman()) {
-                        /* TODO DYLAN */
-                        //Choix du nombre de troupe a deployer
-                        // Donner un nombre de troupe en fonction du nombre de region enemies adjacentes, et du nombre total de troupe restant a deployé
+                    	try {
+                            do {
+                                 int nbTroops = currentPlayer.getNbTroops();
+                                 if(nbTroops > 10)
+                                 {
+                                	 nbTroopsToDeploy = (int) (Math.random() * (nbTroops - 9));
+                                 }
+                                 else
+                                 {
+                                	 nbTroopsToDeploy = 1;
+                                 }
+                            } while (nbTroopsToDeploy < 1 || nbTroopsToDeploy > currentPlayer.getNbTroops());
+                        } catch (Exception ex) {
+
+                        }
                     }
 
                     Region selectedRegion = currentPlayer.getControlledRegions().get(selectedRegionIndex);
