@@ -56,4 +56,4 @@ Je rencontre des difficultés dans le workflow du jeu avec l'interface graphique
 
  - JavaFX 3.0.0
  - Gestionnaire de dépendances Maven :
-  - org.apache Commons text 1.2
+   - org.apache Commons text 1.2
