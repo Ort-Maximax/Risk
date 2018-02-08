@@ -150,9 +150,7 @@ public class Play {
             switch (playerIsHuman) {
                 case "n":
                     playerName = "(COM)" + playerName;
-                    //isHuman = false;
-                    //IA pas dev
-                    isHuman = true;
+                    isHuman = false;
 
                     break;
                 default:
