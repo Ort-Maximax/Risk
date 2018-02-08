@@ -72,7 +72,7 @@ public class Deployment {
                     // Choisir une région faible avec des adjacences enemies
                 	try {
                         do {
-                            //TODO
+                        	selectedRegionIndex = (int) ((Math.random() * (playerRegions.size())));
                         } while (selectedRegionIndex >= playerRegions.size() || selectedRegionIndex < 0);
                     } catch (Exception ex) {
 
@@ -100,7 +100,7 @@ public class Deployment {
                     //Choisir en fonction de région faible à renforcer, et du nombre de troupe total à deployer
                 	try {
                         do {
-                            //TODO
+                        	nbTroopsToDeploy = (int) ((Math.random() * (nbDeployMax - min))) + min;
                         } while (nbTroopsToDeploy < min || nbTroopsToDeploy > nbDeployMax);
                     } catch (Exception ex) {
 
