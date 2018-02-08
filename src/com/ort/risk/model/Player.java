@@ -87,6 +87,11 @@ public class Player {
     }
 
     /**
+     * @author CS
+     * Utils functions tied to the player entity
+     */
+
+    /**
      * @return the list of region from where the player can initiate a war
      */
     public List<Region> getWarRegions() {

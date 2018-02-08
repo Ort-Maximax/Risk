@@ -28,6 +28,11 @@ public class CustomStage extends Stage {
 		
 	}
 	
+	/**
+	 * Display a CustomStage
+	 * @param width
+	 * @param height
+	 */
 	public void getDisplay(Integer width, Integer height) {
 		if ( width != null && height != null )
 			setScene(new Scene(mainPane, width, height));

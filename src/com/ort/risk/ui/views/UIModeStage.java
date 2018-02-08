@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Screen;
 
 
 /**
@@ -104,13 +106,21 @@ public class UIModeStage extends CustomStage {
 						.filter(n -> (n instanceof TextField))
 						.collect(Collectors.toList());
 				Mode selectedMode = map.getModes().stream().filter(m -> m.getIsSelected()).findFirst().get();
-				for ( Node playerTextField : textFields ) {
-					TextField tf = (TextField) playerTextField;
-					String name = (tf.getText().length() > 0) ? tf.getText() : String.format("Player %d", textFields.indexOf(playerTextField) + 1);
-					players.add(new Player(name, true, textFields.indexOf(playerTextField) + 1, selectedMode.getNbInitTroops()));
+				if (selectedMode != null) {
+					for ( Node playerTextField : textFields ) {
+						TextField tf = (TextField) playerTextField;
+						String name = (tf.getText().length() > 0) ? tf.getText() : String.format("Player %d", textFields.indexOf(playerTextField) + 1);
+						players.add(new Player(name, true, textFields.indexOf(playerTextField) + 1, selectedMode.getNbInitTroops()));
+					}
+					map.setPlayerList(players);
+					
+					UIGameStage nextStage = new UIGameStage();
+					Screen screen = Screen.getPrimary();
+					Rectangle2D bounds = screen.getVisualBounds();
+					nextStage.setWidth(bounds.getWidth());
+					nextStage.setHeight(bounds.getHeight());
+					nextStage.getDisplay(Double.valueOf(nextStage.getWidth()).intValue(), Double.valueOf(nextStage.getHeight()).intValue());					
 				}
-				map.setPlayerList(players);
-				new UIGameStage().getDisplay(null, null);
 			}
         	
         });

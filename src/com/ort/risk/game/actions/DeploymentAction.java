@@ -7,11 +7,15 @@ import com.ort.risk.model.Zone;
 
 import java.util.List;
 
+
+/**
+ * @author CS
+ * Actions tied
+ */
 public class DeploymentAction {
 
 
     public static void attribRegion(Player player, Region chosenRegion){
-        int a = chosenRegion.getDeployedTroops();
         chosenRegion.setDeployedTroops(1);
         player.changeNbTroops(-1);
 

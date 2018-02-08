@@ -25,9 +25,7 @@ public class Deployment {
         List<Region> playerRegions = player.getControlledRegions();
         //System.out.println(nbRenfort);
 
-        System.out.println("==========================================================");
-        System.out.println("\t\t\tDEPLOIEMENT ");
-        System.out.println("==========================================================");
+        ConsoleLauncher.printTitle("DEPLOIEMENT", 60, '~' ) ;
 
         while (nbDeployMax > 0) {
 

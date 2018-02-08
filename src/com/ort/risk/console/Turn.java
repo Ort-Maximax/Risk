@@ -17,11 +17,7 @@ public class Turn {
         int exMode = mapObj.getExMode();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("\n\n==========================================================");
-        System.out.println("\t\tDEBUT DU TOUR DE " + currentPlayer.getName());
-        System.out.println("==========================================================\n\n");
-
-
+        ConsoleLauncher.printTitle("DEBUT DU TOUR DE " + currentPlayer.getName(), 60, '=' ) ;
 
         Deployment.execute(currentPlayer);
 
@@ -35,9 +31,8 @@ public class Turn {
 
 
 
-        System.out.println("\n\n==========================================================");
-        System.out.println("\t\tFIN DU TOUR DE " + currentPlayer.getName());
-        System.out.println("==========================================================\n\n");
+
+        ConsoleLauncher.printTitle("FIN DU TOUR DE " + currentPlayer.getName(), 60, '=' ) ;
 
         //Print end of turn info only in console mode
         if(exMode == Launcher.ExecMode.CONSOLE.value()){

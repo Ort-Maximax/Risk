@@ -225,16 +225,34 @@ public class Map {
 	}
 
 	public void conquerRegion(Player conquerer, Region conqueredRegion){
-		for(Player p : this.getPlayerList()){
-			List<Region> controlledRegions = p.getControlledRegions();
-			if(controlledRegions.contains(conqueredRegion)){
-				//The losing player lose control of the region
-				p.getControlledRegions().remove(conqueredRegion);
-				// The conquerer gain control of the region
-				conquerer.addControlledRegion(conqueredRegion);
+
+		//If the region is owned by a player
+		if(!conqueredRegion.getIsRogue()){
+			for(Player p : this.getPlayerList()){
+				List<Region> controlledRegions = p.getControlledRegions();
+				if(controlledRegions.contains(conqueredRegion)){
+					//The losing player lose control of the region
+					p.getControlledRegions().remove(conqueredRegion);
+					// The conquerer gain control of the region
+					conquerer.addControlledRegion(conqueredRegion);
+				}
 			}
+		} else {
+			//else this mus be ORC controlled region
+			conquerer.addControlledRegion(conqueredRegion);
+			conqueredRegion.setIsRogue(false);
 		}
+
 	}
+
+    public List<Region> getRogueRegions(){
+        List<Region> allRegions = this.getRegions();
+
+        List<Region> rogueRegions =  allRegions.stream().filter(r -> r.getIsRogue()).collect(Collectors.toList());
+
+        return rogueRegions;
+
+    }
 
 
 	public Region getRegionByName(String regionName){

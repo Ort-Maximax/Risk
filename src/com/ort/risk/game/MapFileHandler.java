@@ -37,7 +37,7 @@ public class MapFileHandler {
 	}
 	
 	public File getCurrentMapFile() {
-		return new File(RiskProperties.CURRENT_MAP_PATH_PROP + CURRENT_MAP_NAME);
+		return new File(RiskProperties.getInstance().getProperty(RiskProperties.CURRENT_MAP_PATH_PROP) + CURRENT_MAP_NAME);
 	}
 	
 	public void saveMap(File map) {

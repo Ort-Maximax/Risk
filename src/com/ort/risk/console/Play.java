@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author CS
- * Game sourcecode. Contaien the two phases : Initialisation, and turn loops
+ * Contaien the two game phases : Initialisation, and turn loop
  */
 public class Play {
 
@@ -54,6 +54,13 @@ public class Play {
             validPlayerList = playerList.stream()
                     .filter(p -> p.getControlledRegions().size() >= 1).collect(Collectors.toList());
         }
+
+
+        //When there is only one valid player
+        displayEndGameScreen(validPlayerList.get(0));
+
+
+
     }
 
     public static void InitDeployment() {
@@ -100,16 +107,7 @@ public class Play {
             }
         }
 
-        //
-        if (exMode == ExecMode.GUI.value()) {
-            /* TODO : Input utilisateur via GUI */
-
-
-        }
-
-
         allModes.get(selectedModeIndex).setIsSelected(true);
-        ConsoleLauncher.clearConsole();
 
         System.out.println("Mode selectionné : ");
         System.out.println("\tNb joueurs : " + allModes.get(selectedModeIndex).getNbPlayer());
@@ -122,40 +120,50 @@ public class Play {
             String playerName = "Player" + n;
             String playerIsHuman = "y";
 
+            if(exMode == ExecMode.CONSOLE.value()) {
 
-            try {
-                do {
+                try {
                     System.out.println("\nEntrez le nom du joueur " + n);
+
+
                     playerName = br.readLine();
-                } while (playerName.length() == 0);
 
-            } catch (Exception ex) {
 
-            }
 
-            System.out.println("Joueur humain ? ");
-            try {
-                do {
+                } catch (Exception ex) {
+
+                }
+
+                System.out.println("Joueur humain ? ");
+                try {
+
                     System.out.println("(y/n)");
                     playerIsHuman = br.readLine();
-                } while (!playerIsHuman.equals("y") && !playerIsHuman.equals("n"));
 
-            } catch (Exception ex) {
+                } catch (Exception ex) {
 
+                }
             }
 
             boolean isHuman = true;
 
             switch (playerIsHuman) {
-                case "y":
-                    isHuman = true;
-                    break;
                 case "n":
                     playerName = "(COM)" + playerName;
-                    isHuman = false;
+                    //isHuman = false;
+                    //IA pas dev
+                    isHuman = true;
+
+                    break;
+                default:
+                    isHuman = true;
                     break;
             }
             // Add players to the map
+
+            if(playerName.length() == 0){
+                playerName = "Player" + n;
+            }
             mapObj.addPlayer(new Player(playerName, isHuman, n, nbTroupePerPlayer));
 
             /*System.out.println("\tNom : " + playerName);
@@ -163,9 +171,8 @@ public class Play {
         }
 
         if (exMode == ExecMode.CONSOLE.value()) {
-            System.out.println("\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("\t\t Attribution des regions, les joueurs choissisent une région non occupée chacun leur tour !");
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
+
+            ConsoleLauncher.printTitle("Attribution des regions", 60, '+');
         }
 
         //Regions' attribution
@@ -173,7 +180,7 @@ public class Play {
         List<Region> notOccupiedRegions = mapObj.getRegions().stream()
                 .filter(p -> !p.getIsOccupied()).collect(Collectors.toList());
 
-        while (notOccupiedRegions.size() > 0) {
+        while (notOccupiedRegions.size() >= mapObj.getPlayerList().size() ) {
             for (int p = 0; p < mapObj.getPlayerList().size() && notOccupiedRegions.size() > 0; p++) {
                 int selectedRegionIndex = 0;
                 Player currentPlayer = mapObj.getPlayerList().get(p);
@@ -184,9 +191,10 @@ public class Play {
 
                 //Console mode
                 if (exMode == ExecMode.CONSOLE.value()) {
-                    System.out.println("\n==========================================================");
-                    System.out.println("\t\tCHOIX DU JOUEUR " + currentPlayer.getName());
-                    System.out.println("==========================================================\n");
+
+                    String s = "CHOIX DU JOUEUR " + currentPlayer.getName();
+                    ConsoleLauncher.printTitle(s, 60, '=');
+
                     System.out.println("Regions neutres : ");
                     for (int nor = 0; nor < notOccupiedRegions.size(); nor++) {
                         System.out.println("\t[" + nor + "]" + notOccupiedRegions.get(nor).getName());
@@ -258,17 +266,24 @@ public class Play {
                 notOccupiedRegions = notOccupiedRegions.stream()
                         .filter(po -> !po.getIsOccupied()).collect(Collectors.toList());
 
-
             }
         }
+
+        //Give the regions that cant be evenly splitted between the player to the ORCS
+        for(Region stillNotOccupiedRegion : notOccupiedRegions){
+            //We can't use attribRegion function here, since the region doesnt actually belong to any player
+            stillNotOccupiedRegion.setDeployedTroops(1);
+            stillNotOccupiedRegion.setIsRogue(true);
+            stillNotOccupiedRegion.setIsOccupied(true);
+        }
+
+
         //Initial deployment
 
         // Console mode
         if (exMode == ExecMode.CONSOLE.value()) {
-            System.out.println("\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("\t\tDeploiement initial, repartissez vos troupes sur vos régions");
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
 
+            ConsoleLauncher.printTitle("Deploiement initial", 60, '+');
 
             for (int q = 0; q < mapObj.getPlayerList().size(); q++) {
                 Player currentPlayer = mapObj.getPlayerList().get(q);
@@ -276,10 +291,8 @@ public class Play {
                 int selectedRegionIndex = 0;
                 int nbTroopsToDeploy = 0;
 
+                ConsoleLauncher.printTitle("DEPLOIEMENT DE " + currentPlayer.getName(), 60, '=');
 
-                System.out.println("\n==========================================================");
-                System.out.println("\t\tDEPLOIEMENT DE " + currentPlayer.getName());
-                System.out.println("==========================================================\n");
                 while (currentPlayer.getNbTroops() > 0) {
 
                     System.out.println("Troupes a repartir par " + currentPlayer.getName() + " : " + currentPlayer.getNbTroops() + "\n");
@@ -394,24 +407,54 @@ public class Play {
             }
         }
 
-        System.out.println("\n\n==========================================================");
-        System.out.println("\t\tDEBUT DE LA PARTIE");
-        System.out.println("==========================================================");
 
+        ConsoleLauncher.printTitle("DEBUT DE LA PARTIE", 60, '=');
+    }
+
+    public static void displayEndGameScreen(Player winner){
+        //Make sure to clear the screen
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        System.out.println(
+                "   ____     ____        _    __     __    U  ___ u \n" +
+                "U | __\")uU |  _\"\\ u U  /\"\\  u\\ \\   /\"/u    \\/\"_ \\/ \n" +
+                " \\|  _ \\/ \\| |_) |/  \\/ _ \\/  \\ \\ / //     | | | | \n" +
+                "  | |_) |  |  _ <    / ___ \\  /\\ V /_,-.-,_| |_| | \n" +
+                "  |____/   |_| \\_\\  /_/   \\_\\U  \\_/-(_/ \\_)-\\___/  \n" +
+                " _|| \\\\_   //   \\\\_  \\\\    >>  //            \\\\    \n" +
+                "(__) (__) (__)  (__)(__)  (__)(__)          (__)   ");
+
+        System.out.println( winner.getName() + " remporte la partie !!!");
 
     }
 
     public static void printPlayerRegions() {
         Map mapObj = Map.getInstance();
-        for (int pq = 0; pq < mapObj.getPlayerList().size(); pq++) {
-            System.out.println(mapObj.getPlayerList().get(pq).getName());
-            List<Region> playerRegion = mapObj.getPlayerList().get(pq).getControlledRegions();
-            for (int pr = 0; pr < playerRegion.size(); pr++) {
-                System.out.println("\t" + playerRegion.get(pr).getName() + " : " + playerRegion.get(pr).getDeployedTroops());
+        //For each player
+        for (Player p : mapObj.getPlayerList()) {
+            System.out.println(p.getName());
+            List<Region> playerRegions = p.getControlledRegions();
+
+            //For every player region
+            for (Region r : playerRegions) {
+                System.out.println("\t" + r.getName() + " : " + r.getDeployedTroops());
 
             }
             System.out.println("\n");
         }
+
+        List<Region> a = mapObj.getRogueRegions();
+        if(mapObj.getRogueRegions().size() > 0) {
+            System.out.println("Regions sauvage");
+
+            for (Region r : mapObj.getRogueRegions()) {
+                System.out.println("\t" + r.getName() + " : " + r.getDeployedTroops());
+
+            }
+
+        }
     }
+
+
 
 }

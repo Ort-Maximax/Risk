@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ort.risk.game.Launcher;
 import com.ort.risk.game.MapFileHandler;
 import com.ort.risk.game.Parser;
+import com.ort.risk.model.Map;
 import com.ort.risk.ui.views.UIModeStage;
 
 import javafx.application.Application;
@@ -45,6 +47,8 @@ public class UILauncher extends Application {
     private Label mapFileFileChooserLabel;
 	private ChoiceBox<String> savedMapChoiceBox;
 	
+	private Map map = Map.getInstance();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -81,13 +85,15 @@ public class UILauncher extends Application {
 			List<String> mapFilesName = mapFiles
 					.stream()
 					.map(File::getName)
+					.sorted()
 					.collect(Collectors.toList());
 			HashMap<String, File> mapMapFiles = new HashMap<String, File> ();
 			for (File file : mapFiles)
 				mapMapFiles.put(file.getName(), file);
 			
 			mapFileFileChooserLabel = new Label("Choose a saved map");
-			savedMapChoiceBox = new ChoiceBox<String>(FXCollections.observableArrayList(mapMapFiles.keySet()));
+			savedMapChoiceBox = new ChoiceBox<String>(FXCollections.observableArrayList(
+					mapMapFiles.keySet().stream().sorted().collect(Collectors.toList())));
 
 			savedMapChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number> () {
 				
@@ -135,6 +141,7 @@ public class UILauncher extends Application {
 		public void handle(ActionEvent arg0) {
 			mapFileHandler.saveMap(choosedMapFile);
 			mapFileHandler.moveMapFileToCurrent(choosedMapFile);
+			map.setExMode(Launcher.ExecMode.GUI.value());
 			Parser.prepMap();
 			new UIModeStage().getDisplay(300, 300);
 		}

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
+/**
+ * @author CS
+ * Functions tied to the War action
+ */
 public class WarAction {
     public static Object[] Assault(Region atkRegion, Player atkPlayer, Region defRegion, int nbAttack, int nbDef){
         /**
@@ -93,7 +97,20 @@ public class WarAction {
             atkRegion.changeDeployedTroops(nbAttack - atkLoss);
 
             //And go occupy the losing defending region
-            defRegion.setDeployedTroops(nbAttack - atkLoss);
+
+            // In case there are survivor from the attack
+            if(nbAttack - atkLoss > 0) {
+                defRegion.setDeployedTroops(nbAttack - atkLoss);
+            } else {
+                //If there is at least 2 troops remaining in the attacking region after the loss
+                if(atkRegion.getDeployedTroops() >= 2){
+                    atkRegion.changeDeployedTroops(-1);
+                    defRegion.setDeployedTroops(1);
+                } else {
+                    //Should not happen EVER
+                    defRegion.setDeployedTroops(1);
+                }
+            }
 
             mapObj.conquerRegion(atkPlayer, defRegion);
             result[4] = true;

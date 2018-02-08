@@ -42,6 +42,11 @@ public class Move {
 				this.getClass().getName(), this.name);
 	}
 
+	/**
+	 * @author CS
+	 * Utils functions tied modes, and the execution of their respective action
+	 */
+
 	public Object[] execute(Region startRegion, Region endRegion, Player atkPlayer, int nbAttack, int nbDef){
 		Object[] ret = null;
 		switch(this.getName()){

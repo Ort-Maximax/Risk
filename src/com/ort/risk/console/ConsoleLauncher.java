@@ -1,7 +1,12 @@
 package com.ort.risk.console;
 
 import com.ort.risk.game.*;
+import java.util.stream.*;
 
+/**
+ * @author CS
+ * Entry point of the console mode
+ */
 public class ConsoleLauncher {
 
     public static void run() {
@@ -36,6 +41,51 @@ public class ConsoleLauncher {
         {
             //  Handle any exceptions.
         }
+    }
+
+    //print a section title
+    public static void printTitle(String text, int nbLineChar, char borderChar){
+        int blankSpacesNumber = nbLineChar - text.length();
+
+
+        System.out.print("\n");
+        //If the blank spaces can be divided by two
+        if(blankSpacesNumber % 2 == 0){
+
+            Stream.generate(() -> borderChar).limit(nbLineChar).forEach(System.out::print);
+            System.out.print("\n");
+
+            System.out.print("|");
+            Stream.generate(() -> " ").limit(((blankSpacesNumber / 2)) -1).forEach(System.out::print);
+            System.out.print(text);
+            Stream.generate(() -> " ").limit(((blankSpacesNumber / 2) -1)).forEach(System.out::print);
+            System.out.print("|");
+            System.out.print("\n");
+
+            Stream.generate(() -> borderChar).limit(nbLineChar).forEach(System.out::print);
+            System.out.print("\n");
+
+        } else {
+
+            Stream.generate(() -> borderChar).limit(nbLineChar).forEach(System.out::print);
+            System.out.print("\n");
+
+            System.out.print("|");
+            Stream.generate(() -> " ").limit(((blankSpacesNumber / 2) -1)).forEach(System.out::print);
+            System.out.print(text);
+            Stream.generate(() -> " ").limit(((blankSpacesNumber / 2))).forEach(System.out::print);
+            System.out.print("|");
+            System.out.print("\n");
+
+
+            Stream.generate(() -> borderChar).limit(nbLineChar).forEach(System.out::print);
+
+
+
+        }
+
+        System.out.print("\n");
+
     }
 
 

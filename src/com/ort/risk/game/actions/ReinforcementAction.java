@@ -6,6 +6,10 @@ import com.ort.risk.model.Zone;
 
 import java.util.List;
 
+/**
+ * @author CS
+ * Functions tied to the Reinforcement action
+ */
 public class ReinforcementAction {
     public static void execute(Region regionTo, Region regionFrom, int nbTroops){
         Object[] ret = new Object[5];

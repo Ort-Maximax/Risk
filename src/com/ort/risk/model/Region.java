@@ -29,6 +29,7 @@ public class Region {
 	private List<Frontier> frontiers = new ArrayList<Frontier>();
 
 	private boolean isOccupied = false;
+	private boolean isRogue = false;
 
 	private int deployedTroops = 0;
 
@@ -91,6 +92,14 @@ public class Region {
 		this.isOccupied = state;
 	}
 
+	public boolean getIsRogue(){
+		return this.isRogue;
+	}
+
+	public void setIsRogue(boolean state){
+		this.isRogue = state;
+	}
+
 
 	public int getDeployedTroops(){
 		return this.deployedTroops;
@@ -114,6 +123,12 @@ public class Region {
 				this.getClass().getName(), this.name, this.bonus,
 				frontiers.stream().map(Frontier::toString).collect(Collectors.joining(", ")));
 	}
+
+
+	/**
+	 * @author CS
+	 * Utils functions tied to a region
+	 */
 
 	/**
 	 * if the region has 2+ troops on it, and a frontier valid for war move
