@@ -197,7 +197,7 @@ public class War {
                         // Toujours action 0
                     	try {
                             do {
-                                //TODO
+                                selectedMoveIndex = 0;
                             } while (selectedMoveIndex >= availableMoves.size() || selectedMoveIndex < 0);
                         } catch (Exception ex) {
 

@@ -67,9 +67,6 @@ public class Deployment {
                 }
 
                 if (!player.getIsHuman()) {
-                    /* TODO DYLAN */
-                    // CHoix de la région sur laquelle deployé des troupes
-                    // Choisir une région faible avec des adjacences enemies
                 	try {
                         do {
                         	selectedRegionIndex = (int) ((Math.random() * (playerRegions.size())));
@@ -95,9 +92,6 @@ public class Deployment {
                 }
 
                 if (!player.getIsHuman()) {
-                    /* TODO DYLAN */
-                    //Choix du nombre de troupes à y deployer
-                    //Choisir en fonction de région faible à renforcer, et du nombre de troupe total à deployer
                 	try {
                         do {
                         	nbTroopsToDeploy = (int) ((Math.random() * (nbDeployMax - min))) + min;
