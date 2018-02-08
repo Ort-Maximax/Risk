@@ -42,7 +42,7 @@ public class Parser {
                 File mapXML = mapHandler.getCurrentMapFile();
 				xml = builder.parse(mapXML);
             } else {
-                in = Parser.class.getResourceAsStream("resources/classic.xml");
+                in = Parser.class.getResourceAsStream("classic.xml");
                 xml = builder.parse(in);
             }
 

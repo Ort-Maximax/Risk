@@ -49,7 +49,7 @@ public class UIGameStage extends CustomStage {
         
         // Turn label
         countTurn = 0;
-        turnLbl = new Label(String.format("Turn n°%d", countTurn++));
+        turnLbl = new Label(String.format("Turn no%d", countTurn++));
         turnLbl.setFont(new Font(turnLbl.getFont().getFamily(), 30));
         
         // Label current player name
@@ -79,7 +79,7 @@ public class UIGameStage extends CustomStage {
         playerRegionView.autosize();
         
         // Players regions label
-        // TODO : Changer cette partie pour avoir quelque chose de plus personnalisé pour les joueurs
+        // TODO : Changer cette partie pour avoir quelque chose de plus personnalise pour les joueurs
         playersInfoLbl = new Label();
         playersInfoLbl.setMaxWidth(200);
         playersInfoLbl.setWrapText(true);
@@ -180,7 +180,7 @@ public class UIGameStage extends CustomStage {
 		StringBuilder renderText = new StringBuilder();
 		for (Player player : map.getPlayerList()) {
 			String playerType = (player.getIsHuman()) ? "Player" : "AI";
-			renderText.append(String.format("%s n°%d : %s", playerType, player.getOrder(), player.getName()));
+			renderText.append(String.format("%s no%d : %s", playerType, player.getOrder(), player.getName()));
 			renderText.append(String.format("\n%d troops", player.getNbTroops()));
 			if (player.getControlledRegions().size() > 0)
 				renderText.append(String.format("\nRegions : { %s }", player.getControlledRegions().stream()
@@ -209,7 +209,7 @@ public class UIGameStage extends CustomStage {
 	}
 	
 	private Player nextTurn() {
-		turnLbl.setText(String.format("Turn n°%d", countTurn++));
+		turnLbl.setText(String.format("Turn no%d", countTurn++));
 		Player nextPlayer = null;
 		Optional<Player> nextPlayerSearch = map.getPlayerList().stream().filter(p -> p.getOrder() == currentPlayer.getOrder() + 1).findFirst();
 		if (nextPlayerSearch.isPresent())

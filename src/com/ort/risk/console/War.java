@@ -16,6 +16,22 @@ import java.util.concurrent.TimeUnit;
  */
 public class War {
 
+    enum WarAction {
+        ATTACK(1),
+        STOP(0);
+
+        private final int value;
+
+        WarAction(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+    }
+
     public static void execute(Player player) {
         Map mapObj = Map.getInstance();
         int exMode = mapObj.getExMode();
@@ -58,9 +74,9 @@ public class War {
                     /* TODO DYLAN */
                     //Choix de lancer une attaque ou pas
                     // Aucune idée. Random pondéré en fonction du nombre de region controllé par l'IA peut etre ?
-                	try {
+                    try {
                         do {
-                        	//TODO
+                            //TODO
                         } while (warDecision < 0 || warDecision > 1);
                     } catch (Exception ex) {
 
@@ -101,7 +117,7 @@ public class War {
                         /* TODO DYLAN */
                         // Choix de la région attaquante
                         // choisir une region forte, et/ou qui a des adjacences enemies faible
-                    	try {
+                        try {
                             do {
                                 //TODO
                             }
@@ -150,7 +166,7 @@ public class War {
                         /* TODO DYLAN */
                         //Selection d'une region a attaquer
                         //Choisir la region la plus faible possible
-                    	try {
+                        try {
                             do {
                                 //TODO
                             } while (selectedEndRegionIndex >= allWarTargets.size() || selectedEndRegionIndex < 0);
@@ -200,12 +216,11 @@ public class War {
                             }
                         }
 
-                     
 
-                        if(!player.getIsHuman()) {
+                        if (!player.getIsHuman()) {
                             /* TODO DYLAN */
                             // Toujours action 0
-                          try {
+                            try {
                                 do {
                                     selectedMoveIndex = 0;
                                 } while (selectedMoveIndex >= availableMoves.size() || selectedMoveIndex < 0);
@@ -213,158 +228,144 @@ public class War {
 
                             }
 
-                        //Random mode
-                        if (exMode == Launcher.ExecMode.RANDOM.value()) {
-                            selectedMoveIndex = (int) ((Math.random() * (availableMoves.size())));
-
-                        }
-
-
-                    int nbAttack = 0;
-
-                    System.out.println("Choisissez le nombre de troupes à envoyer pour l'attaque");
-                    if (exMode == Launcher.ExecMode.CONSOLE.value()) {
-                        if (player.getIsHuman()) {
-
-
-                            try {
-                                do {
-                                    System.out.println("(1-" + Math.min(3, startRegion.getDeployedTroops()) + ")");
-                                    nbAttack = Integer.parseInt(br.readLine());
-                                } while (nbAttack < 0 || nbAttack > Math.min(3, startRegion.getDeployedTroops()));
-                            } catch (Exception ex) {
+                            //Random mode
+                            if (exMode == Launcher.ExecMode.RANDOM.value()) {
+                                selectedMoveIndex = (int) ((Math.random() * (availableMoves.size())));
 
                             }
 
-                        }
-                    }
+
+                            int nbAttack = 0;
+
+                            System.out.println("Choisissez le nombre de troupes à envoyer pour l'attaque");
+                            if (exMode == Launcher.ExecMode.CONSOLE.value()) {
+                                if (player.getIsHuman()) {
 
 
-                if(!player.getIsHuman()) {
-                    /* TODO DYLAN */
-                    // Aucune idée... random ?
-                	// Most Efficient Tactical Attack ?
-                	try {
-                        do {
-                            //TODO
-                        } while (nbAttack < 0 || nbAttack > Math.min(3, startRegion.getDeployedTroops()));
-                    } catch (Exception ex) {
+                                    try {
+                                        do {
+                                            System.out.println("(1-" + Math.min(3, startRegion.getDeployedTroops()) + ")");
+                                            nbAttack = Integer.parseInt(br.readLine());
+                                        }
+                                        while (nbAttack < 0 || nbAttack > Math.min(3, startRegion.getDeployedTroops()));
+                                    } catch (Exception ex) {
 
-                    }
-                }
+                                    }
 
-                    if (exMode == Launcher.ExecMode.RANDOM.value()) {
-                        nbAttack = Math.min(3, (startRegion.getDeployedTroops()));
-                    }
+                                }
+                            }
 
 
-
-                    Region endRegion = mapObj.getRegionByName(endRegionName);
-
-                    int nbDef = 0;
-
-                    boolean r = endRegion.getIsRogue();
-
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(400);
-                    } catch (Exception e) {
-
-                    }
-                
-                    if (!r) {
-                        Player defPlayer = mapObj.getOwnerOfRegion(endRegion);
-
-                        System.out.println("\n" + defPlayer.getName() + ", combien de troupes vont defendre l'attaque ?");
-                        if (exMode == Launcher.ExecMode.CONSOLE.value()) {
-                            if (defPlayer.getIsHuman()) {
+                            if (!player.getIsHuman()) {
+                                /* TODO DYLAN */
+                                // Aucune idée... random ?
+                                // Most Efficient Tactical Attack ?
                                 try {
                                     do {
-                                        System.out.println("(1-" + Math.min(2, endRegion.getDeployedTroops()) + ")");
-                                        nbDef = Integer.parseInt(br.readLine());
-                                    } while (nbDef < 0 || nbDef > Math.min(2, endRegion.getDeployedTroops()));
+                                        //TODO
+                                    } while (nbAttack < 0 || nbAttack > Math.min(3, startRegion.getDeployedTroops()));
                                 } catch (Exception ex) {
 
                                 }
                             }
+
+                            if (exMode == Launcher.ExecMode.RANDOM.value()) {
+                                nbAttack = Math.min(3, (startRegion.getDeployedTroops()));
+                            }
+
+
+                            Region endRegion = mapObj.getRegionByName(endRegionName);
+
+                            int nbDef = 0;
+
+                            boolean r = endRegion.getIsRogue();
+
+                            try {
+                                TimeUnit.MILLISECONDS.sleep(400);
+                            } catch (Exception e) {
+
+                            }
+
+                            if (!r) {
+                                Player defPlayer = mapObj.getOwnerOfRegion(endRegion);
+
+                                System.out.println("\n" + defPlayer.getName() + ", combien de troupes vont defendre l'attaque ?");
+                                if (exMode == Launcher.ExecMode.CONSOLE.value()) {
+                                    if (defPlayer.getIsHuman()) {
+                                        try {
+                                            do {
+                                                System.out.println("(1-" + Math.min(2, endRegion.getDeployedTroops()) + ")");
+                                                nbDef = Integer.parseInt(br.readLine());
+                                            } while (nbDef < 0 || nbDef > Math.min(2, endRegion.getDeployedTroops()));
+                                        } catch (Exception ex) {
+
+                                        }
+                                    }
+                                }
+
+                                if (exMode == Launcher.ExecMode.RANDOM.value()) {
+                                    nbDef = Math.min(2, endRegion.getDeployedTroops());
+                                }
+
+
+                                if (!defPlayer.getIsHuman()) {
+                                    /* TODO DYLAN */
+                                    // Choix du nombre de troupes pour la défenses
+                                    // Aucune idée...
+                                }
+
+                            } else {
+                                nbDef = 1;
+                            }
+
+
+                            Object[] result = availableMoves.get(selectedMoveIndex).execute(startRegion, endRegion, player, nbAttack, nbDef);
+                            /**
+                             * 0 : Jet de dés de l'attaque
+                             * 1 : jet de dès de la defense
+                             * 2 : Victoire ou defaite
+                             * 3 : [ atkLoss, defLoss ]
+                             * 4 : Prise du territoire ?
+                             */
+                            switch ((Integer) result[2]) {
+                                case -1:
+                                    System.out.println("\nL'assaut est un echec ! ");
+                                    break;
+                                case 0:
+                                    System.out.println("\nLes pertes sont égales des deux cotés ! ");
+                                    break;
+                                case 1:
+                                    System.out.println("\nL'assaut est un succès ! ");
+                                    break;
+                            }
+
+                            Integer[] arrLoss = (Integer[]) result[3];
+
+                            System.out.println("L'attaque a perdu " + arrLoss[0] + " de ses " + nbAttack + " troupes engagées !");
+                            System.out.println("La défense a perdu " + arrLoss[1] + " de ses " + nbDef + " troupes engagées !");
+
+                            if ((boolean) result[4]) {
+                                System.out.println("Tout les troupes de la région attaquées ont été vaincu, " + player.getName() + " s'empare de la region de " + endRegion.getName() + " !!\n");
+                            }
+
+                            System.out.println("\n==========================================================\n");
+
+
+                        } else {
+                            System.out.println("\n" + player.getName() + " a arreter la guerre !");
+                            // If the player choose to stop the war
+                            return;
                         }
-
-                        if (exMode == Launcher.ExecMode.RANDOM.value()) {
-                            nbDef = Math.min(2, endRegion.getDeployedTroops());
-                        }
-
-
-                        if (!defPlayer.getIsHuman()) {
-                            /* TODO DYLAN */
-                            // Choix du nombre de troupes pour la défenses
-                            // Aucune idée...
-                        }
-
                     } else {
-                        nbDef = 1;
+                        System.out.println(" ??? ");
+                        // If the player choose to stop the war
+                        return;
                     }
 
+                    warStartRegions = player.getWarRegions();
 
-                    Object[] result = availableMoves.get(selectedMoveIndex).execute(startRegion, endRegion, player, nbAttack, nbDef);
-                    /**
-                     * 0 : Jet de dés de l'attaque
-                     * 1 : jet de dès de la defense
-                     * 2 : Victoire ou defaite
-                     * 3 : [ atkLoss, defLoss ]
-                     * 4 : Prise du territoire ?
-                     */
-                    switch ((Integer) result[2]) {
-                        case -1:
-                            System.out.println("\nL'assaut est un echec ! ");
-                            break;
-                        case 0:
-                            System.out.println("\nLes pertes sont égales des deux cotés ! ");
-                            break;
-                        case 1:
-                            System.out.println("\nL'assaut est un succès ! ");
-                            break;
-                    }
-
-                    Integer[] arrLoss = (Integer[]) result[3];
-
-                    System.out.println("L'attaque a perdu " + arrLoss[0] + " de ses " + nbAttack + " troupes engagées !");
-                    System.out.println("La défense a perdu " + arrLoss[1] + " de ses " + nbDef + " troupes engagées !");
-
-                    if ((boolean) result[4]) {
-                        System.out.println("Tout les troupes de la région attaquées ont été vaincu, " + player.getName() + " s'empare de la region de " + endRegion.getName() + " !!\n");
-                    }
-
-                    System.out.println("\n==========================================================\n");
-
-
-                } else {
-                    System.out.println("\n" + player.getName() + " a arreter la guerre !");
-                    // If the player choose to stop the war
-                    return;
                 }
-            } else {
-                System.out.println(" ??? ");
-                // If the player choose to stop the war
-                return;
             }
-
-            warStartRegions = player.getWarRegions();
-
         }
-    }
-
-    enum WarAction {
-        ATTACK(1),
-        STOP(0);
-
-        private final int value;
-
-        WarAction(int value) {
-            this.value = value;
-        }
-
-        public int value() {
-            return this.value;
-        }
-
     }
 }

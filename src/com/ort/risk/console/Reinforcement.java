@@ -12,17 +12,32 @@ import java.util.List;
  * Console input mode for the reinforcement action
  */
 public class Reinforcement {
-    public static void execute(Player player){
+    enum ReinfAction {
+        REINFORCE(1),
+        STOP(0);
+
+        private final int value;
+
+        ReinfAction(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+    }
+
+    public static void execute(Player player) {
         Map mapObj = Map.getInstance();
         int exMode = mapObj.getExMode();
         List<Region> reinforcementRegions = player.getReinforcementRegions();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
-        ConsoleLauncher.printTitle("RENFORCEMENT", 60, '~' ) ;
+        ConsoleLauncher.printTitle("RENFORCEMENT", 60, '~');
 
-        while(reinforcementRegions.size() >= 1){
-
+        while (reinforcementRegions.size() >= 1) {
 
 
             int reinfDecision = 0;
@@ -40,7 +55,7 @@ public class Reinforcement {
 
                 System.out.println("\t[0] Fin du tour");
                 System.out.println("\t[1] Renforcer une région");
-                if(player.getIsHuman()) {
+                if (player.getIsHuman()) {
                     try {
                         do {
                             System.out.println("Quel est votre choix ? ");
@@ -51,11 +66,11 @@ public class Reinforcement {
                     }
                 }
 
-                if(!player.getIsHuman()) {
+                if (!player.getIsHuman()) {
                     /* TODO DYLAN */
                     // Choix de renforcer ou non ce tour
                     // Aucune idée
-                	try {
+                    try {
                         do {
                             //TODO
                         } while (reinfDecision < 0 || reinfDecision > 1);
@@ -68,7 +83,7 @@ public class Reinforcement {
 
 
             //If player choose to reinforce
-            if(reinfDecision == ReinfAction.REINFORCE.value()) {
+            if (reinfDecision == ReinfAction.REINFORCE.value()) {
 
                 //Choose a region to reinforce
                 int selectedStartRegionIndex = 0;
@@ -97,7 +112,7 @@ public class Reinforcement {
                         /* TODO DYLAN */
                         //Choix de la région à renforcer
                         // Choisir une région qui a des adjacences avec avec des region enemies forte / avec des regions allié faible
-                    	try {
+                        try {
                             do {
                                 //TODO
                             }
@@ -145,101 +160,87 @@ public class Reinforcement {
                             }
                         }
 
-                    if(!player.getIsHuman()) {
-                        /* TODO DYLAN */
-                        // CHoix de la region qui fournis les troupes du renforcement
-                        // CHoisir une région si possible qui n'a pas d'adjacences avec une region enemies, et un nb de troupe confortable
-                    	try {
-                            do {
-                            	//TODO
-                            } while (selectedEndRegionIndex >= allReinfProviders.size() || selectedEndRegionIndex < 0);
-                        } catch (Exception ex) {
-
-                        }
-                    }
-
-                    //Random mode
-                    if (exMode == Launcher.ExecMode.RANDOM.value()) {
-
-                        selectedEndRegionIndex = (int) ((Math.random() * (allReinfProviders.size())));
-
-                    }
-
-                    Region startRegion = reinforcementRegions.get(selectedStartRegionIndex);
-
-                    String endRegionName = allReinfProviders.get(selectedEndRegionIndex).getName();
-
-                    Region endRegion = mapObj.getRegionByName(endRegionName);
-
-                    Move reinfMove = startRegion.getFrontierReinfMove(endRegionName);
-
-                    System.out.println("Combien de troupes souhaitez-vous deplacer ? ");
-                    int nbTroops = 1;
-                    if (exMode == Launcher.ExecMode.CONSOLE.value()) {
-                        if (player.getIsHuman()) {
+                        if (!player.getIsHuman()) {
+                            /* TODO DYLAN */
+                            // CHoix de la region qui fournis les troupes du renforcement
+                            // CHoisir une région si possible qui n'a pas d'adjacences avec une region enemies, et un nb de troupe confortable
                             try {
                                 do {
-                                    System.out.println("(1-" + (endRegion.getDeployedTroops() - 1) + ")");
-                                    nbTroops = Integer.parseInt(br.readLine());
+                                    //TODO
+                                }
+                                while (selectedEndRegionIndex >= allReinfProviders.size() || selectedEndRegionIndex < 0);
+                            } catch (Exception ex) {
+
+                            }
+                        }
+
+                        //Random mode
+                        if (exMode == Launcher.ExecMode.RANDOM.value()) {
+
+                            selectedEndRegionIndex = (int) ((Math.random() * (allReinfProviders.size())));
+
+                        }
+
+                        Region startRegion = reinforcementRegions.get(selectedStartRegionIndex);
+
+                        String endRegionName = allReinfProviders.get(selectedEndRegionIndex).getName();
+
+                        Region endRegion = mapObj.getRegionByName(endRegionName);
+
+                        Move reinfMove = startRegion.getFrontierReinfMove(endRegionName);
+
+                        System.out.println("Combien de troupes souhaitez-vous deplacer ? ");
+                        int nbTroops = 1;
+                        if (exMode == Launcher.ExecMode.CONSOLE.value()) {
+                            if (player.getIsHuman()) {
+                                try {
+                                    do {
+                                        System.out.println("(1-" + (endRegion.getDeployedTroops() - 1) + ")");
+                                        nbTroops = Integer.parseInt(br.readLine());
+                                    } while (nbTroops > endRegion.getDeployedTroops() - 1 || nbTroops < 1);
+                                } catch (Exception ex) {
+
+                                }
+                            }
+                        }
+
+                        if (!player.getIsHuman()) {
+                            /* TODO DYLAN */
+                            // CHoix du nb de troupe a deplacer
+                            // Choisir un nombre en fonction de "l'urgence" du renforcement = si la region a renforcer est entouré de region enemie tres forte, mettre un gros chiffre
+                            try {
+                                do {
+                                    //TODO
                                 } while (nbTroops > endRegion.getDeployedTroops() - 1 || nbTroops < 1);
                             } catch (Exception ex) {
 
                             }
                         }
+
+                        if (!player.getIsHuman()) {
+                            /* TODO DYLAN */
+                            // CHoix du nb de troupe a deplacer
+                            // Choisir un nombre en fonction de "l'urgence" du renforcement = si la region a renforcer est entouré de region enemie tres forte, mettre un gros chiffre
+                        }
+
+                        reinfMove.execute(startRegion, endRegion, nbTroops);
+
+                        System.out.println(player.getName() + " à deplacer " + nbTroops + " de " + endRegion.getName() + " jusqu'à " + startRegion.getName() + "!\n");
+
+
+                    } else {
+                        System.out.println("\n" + player.getName() + " a fini de renforcer ces régions !");
+                        return;
                     }
-
-                if(!player.getIsHuman()) {
-                    /* TODO DYLAN */
-                    // CHoix du nb de troupe a deplacer
-                    // Choisir un nombre en fonction de "l'urgence" du renforcement = si la region a renforcer est entouré de region enemie tres forte, mettre un gros chiffre
-                	try {
-                        do {
-                            //TODO
-                        } while (nbTroops > endRegion.getDeployedTroops() - 1 || nbTroops < 1);
-                    } catch (Exception ex) {
-
-                    }
-                }
-
-                    if (!player.getIsHuman()) {
-                        /* TODO DYLAN */
-                        // CHoix du nb de troupe a deplacer
-                        // Choisir un nombre en fonction de "l'urgence" du renforcement = si la region a renforcer est entouré de region enemie tres forte, mettre un gros chiffre
-                    }
-
-                    reinfMove.execute(startRegion, endRegion, nbTroops);
-
-                    System.out.println(player.getName() + " à deplacer " + nbTroops + " de " + endRegion.getName() + " jusqu'à " + startRegion.getName() + "!\n");
-
-
                 } else {
-                    System.out.println("\n" + player.getName() + " a fini de renforcer ces régions !");
+                    System.out.println("Il ne reste aucune region apte à renforcer !");
                     return;
                 }
-            } else {
-                System.out.println("Il ne reste aucune region apte à renforcer !");
-                return;
+
+                reinforcementRegions = player.getReinforcementRegions();
+
             }
 
-            reinforcementRegions = player.getReinforcementRegions();
-
         }
-
-    }
-
-    enum ReinfAction {
-        REINFORCE(1),
-        STOP(0);
-
-        private final int value;
-
-        ReinfAction(int value) {
-            this.value = value;
-        }
-
-        public int value() {
-            return this.value;
-        }
-
     }
 }
