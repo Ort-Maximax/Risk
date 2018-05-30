@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class MapFileHandler {
 
 	RiskProperties properties = RiskProperties.getInstance();
-	public static final String CURRENT_MAP_NAME = "played_map.xml";
+	public static final String CURRENT_MAP_NAME = "classic.xml";
 			
 	public void moveMapFileToCurrent(File map) {
 		try {

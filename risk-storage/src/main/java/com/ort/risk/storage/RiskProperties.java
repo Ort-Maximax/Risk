@@ -20,7 +20,7 @@ public class RiskProperties {
 	private RiskProperties() {
 		FileInputStream input = null;
 		try {
-			input = new FileInputStream("config.properties");
+			input = new FileInputStream("resources/config.properties");
 			prop.load(input);
 		} catch (IOException io) {
 			io.printStackTrace();
