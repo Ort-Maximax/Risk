@@ -37,3 +37,7 @@ local.properties
 .settings/
 .loadpath
 /target/
+
+# intellij
+.idea
+*.iml
