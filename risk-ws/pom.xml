@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>com.ort.risk</groupId>
+    <artifactId>Risk</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>risk-ws</artifactId>
+  <packaging>war</packaging>
+  
+  <properties>
+  	<jdk.version>1.8</jdk.version>
+  </properties>
+  
+  <build>
+	<finalName>rest-ws</finalName>
+	<plugins>
+	    <!-- Configuration du plugin de compilation -->
+	    <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <version>3.2</version>
+	        <configuration>
+	            <source>${jdk.version}</source>
+	            <target>${jdk.version}</target>
+	        </configuration>
+	    </plugin>
+	    <!-- Configuration du plugin de génération du war -->
+	    <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <configuration>
+	            <failOnMissingWebXml>false</failOnMissingWebXml>
+	        </configuration>
+	    </plugin>
+	</plugins>
+  </build>
+  
+</project>

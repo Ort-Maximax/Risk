@@ -1,9 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Risk</groupId>
+  <groupId>com.ort.risk</groupId>
   <artifactId>Risk</artifactId>
   <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
+  
   <build>
     <plugins>
       <plugin>
@@ -16,12 +18,15 @@
       </plugin>
     </plugins>
   </build>
+  
   <modules>
     <module>risk-business</module>
     <module>risk-model</module>
     <module>risk-storage</module>
     <module>risk-ui</module>
+    <module>risk-ws</module>
   </modules>
+  
   <dependencies>
   	<dependency>
 	   <groupId>org.apache.commons</groupId>
@@ -53,6 +58,12 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>risk-business</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>risk-ws</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
