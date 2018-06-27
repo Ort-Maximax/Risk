@@ -13,6 +13,11 @@
   
   <properties>
   	<jdk.version>1.8</jdk.version>
+  	<spring.version>5.0.0.RELEASE</spring.version>
+  	<slf4j.version>1.7.9</slf4j.version>
+    <hsqldb.version>1.8.0.10</hsqldb.version>
+    <servlet.api.version>3.1.0</servlet.api.version>
+    <jackson.version>2.4.4</jackson.version>
   </properties>
   
   <build>
@@ -38,5 +43,72 @@
 	    </plugin>
 	</plugins>
   </build>
+  
+  <dependencies>
+  	<!-- Internal dependencies -->
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>risk-model</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>risk-storage</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>risk-business</artifactId>
+    </dependency>
+  	
+  	<!-- External dependencies -->
+  	<!-- Spring -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<!-- Dépendances du Logueur -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>${slf4j.version}</version>
+	</dependency>
+	
+	<!-- Dépendances de la Servlet Api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>${servlet.api.version}</version>
+	</dependency>
+	        
+	<!-- Dépendances HSQLDB -->
+	<dependency>
+	    <groupId>hsqldb</groupId>
+	    <artifactId>hsqldb</artifactId>
+	    <version>${hsqldb.version}</version>
+	</dependency>
+	
+	<!-- dépendances pour jackson mapper -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+  </dependencies>
   
 </project>
