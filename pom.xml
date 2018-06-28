@@ -6,6 +6,10 @@
 	<artifactId>Risk</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	<properties>
+		<maven-plugins.version>3.1.0</maven-plugins.version>
+	</properties>
 
 	<build>
 		<plugins>
@@ -35,7 +39,7 @@
 			<artifactId>commons-text</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- Logger -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
