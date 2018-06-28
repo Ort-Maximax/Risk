@@ -16,19 +16,19 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         
-		//Déclaration de la classe de configuration 
-		//du contexte (dataSource, repositories, spring-security …)
+		//Dï¿½claration de la classe de configuration 
+		//du contexte (dataSource, repositories, spring-security ï¿½)
 		rootContext.register(ContextConfig.class);
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 		   
-		//Création du distapcher de servlet
+		//Crï¿½ation du distapcher de servlet
 		AnnotationConfigWebApplicationContext dispatcherServlet = new AnnotationConfigWebApplicationContext();
 		dispatcherServlet.register(WebMvcConfig.class);
 		
-		//Déclaration du distapcher de servlet
+		//Dï¿½claration du distapcher de servlet
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+		dispatcher.addMapping("/api");
 
 	}
 

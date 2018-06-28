@@ -1,6 +1,6 @@
 package com.ort.risk.business;
 
-import com.ort.risk.model.Map;
+import com.ort.risk.model.Game;
 import com.ort.risk.model.Player;
 import com.ort.risk.model.Region;
 
@@ -22,7 +22,7 @@ public class WarAction {
          * 4 : Prise du territoire ?
          */
         Object[] result = new Object[5];
-        Map mapObj = Map.getInstance();
+        Game gameObj = Game.getInstance();
 
         List<Integer> atkRolls = new ArrayList<Integer>();
         List<Integer> defRolls = new ArrayList<Integer>();
@@ -111,7 +111,7 @@ public class WarAction {
                 }
             }
 
-            mapObj.conquerRegion(atkPlayer, defRegion);
+            gameObj.conquerRegion(atkPlayer, defRegion);
             result[4] = true;
         }
 

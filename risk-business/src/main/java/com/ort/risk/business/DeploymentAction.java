@@ -1,6 +1,6 @@
 package com.ort.risk.business;
 
-import com.ort.risk.model.Map;
+import com.ort.risk.model.Game;
 import com.ort.risk.model.Player;
 import com.ort.risk.model.Region;
 import com.ort.risk.model.Zone;
@@ -30,16 +30,16 @@ public class DeploymentAction {
 
     public static int calcMaxDeploy(Player p){
 
-        Map mapObj = Map.getInstance();
-        int min = mapObj.getNbMinReinforcement();
+        Game gameObj = Game.getInstance();
+        int min = gameObj.getNbMinReinforcement();
         int bonusSum = calcBonusSum(p);
         return Math.max(min, bonusSum);
 
     }
     private static int calcBonusSum(Player p) {
-        Map mapObj = Map.getInstance();
+        Game gameObj = Game.getInstance();
         List<Region> controlledRegions = p.getControlledRegions();
-        List<Zone> allZones = mapObj.getZones();
+        List<Zone> allZones = gameObj.getZones();
         int bonusSum = 0;
 
         //For each controlled region
@@ -59,7 +59,7 @@ public class DeploymentAction {
         }
 
         //Return the truncated integer (= rounded down)
-        return (int) Math.floor(bonusSum / mapObj.getDivider());
+        return (int) Math.floor(bonusSum / gameObj.getDivider());
     }
 
 }
