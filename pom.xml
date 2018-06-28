@@ -1,72 +1,86 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.ort.risk</groupId>
-  <artifactId>Risk</artifactId>
-  <packaging>pom</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
-  <modules>
-    <module>risk-business</module>
-    <module>risk-model</module>
-    <module>risk-storage</module>
-    <module>risk-ui</module>
-    <module>risk-ws</module>
-  </modules>
-  
-  <dependencies>
-  	<dependency>
-	   <groupId>org.apache.commons</groupId>
-	   <artifactId>commons-text</artifactId>
-	   <version>1.2</version>
-	</dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>risk-model</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ort.risk</groupId>
+	<artifactId>Risk</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
 
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>risk-storage</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>risk-ui</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+	<modules>
+		<module>risk-business</module>
+		<module>risk-model</module>
+		<module>risk-storage</module>
+		<module>risk-ui</module>
+		<module>risk-ws</module>
+	</modules>
 
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>risk-business</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>risk-ws</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+	<dependencies>
+		<!-- Text utils -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- Logger -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>risk-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>risk-storage</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>risk-ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>risk-business</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>risk-ws</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>

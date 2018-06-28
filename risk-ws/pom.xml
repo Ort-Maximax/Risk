@@ -1,129 +1,122 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.ort.risk</groupId>
-        <artifactId>Risk</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<groupId>com.ort.risk</groupId>
+		<artifactId>Risk</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
-    <artifactId>risk-ws</artifactId>
-    <packaging>war</packaging>
+	<artifactId>risk-ws</artifactId>
+	<packaging>war</packaging>
 
-    <properties>
-        <jdk.version>1.8</jdk.version>
-        <spring.version>5.0.0.RELEASE</spring.version>
-        <slf4j.version>1.7.9</slf4j.version>
-        <hsqldb.version>1.8.0.10</hsqldb.version>
-        <servlet.api.version>3.1.0</servlet.api.version>
-        <jackson.version>2.9.5</jackson.version>
-        <mongodb.version>2.0.8.RELEASE</mongodb.version>
-        <commons-io.version>2.6</commons-io.version>
-    </properties>
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<spring.version>5.0.0.RELEASE</spring.version>
+		<slf4j.version>1.7.9</slf4j.version>
+		<hsqldb.version>1.8.0.10</hsqldb.version>
+		<servlet.api.version>3.1.0</servlet.api.version>
+		<jackson.version>2.9.5</jackson.version>
+		<mongodb.version>2.0.8.RELEASE</mongodb.version>
+		<commons-io.version>2.6</commons-io.version>
+	</properties>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>resources</directory>
-            </resource>
-        </resources>
-        <finalName>risk-ws</finalName>
-        <plugins>
-            <!-- Configuration du plugin de compilation -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                </configuration>
-            </plugin>
-            <!-- Configuration du plugin de génération du war -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<resources>
+			<resource>
+				<directory>resources</directory>
+			</resource>
+		</resources>
+		<finalName>risk-ws</finalName>
+		<plugins>
+			<!-- Configuration du plugin de compilation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<!-- Configuration du plugin de génération du war -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
-        <!-- Internal dependencies -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>risk-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>risk-storage</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>risk-business</artifactId>
-        </dependency>
+	<dependencies>
+		<!-- Internal dependencies -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>risk-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>risk-storage</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>risk-business</artifactId>
+		</dependency>
 
-        <!-- External dependencies -->
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+		<!-- External dependencies -->
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
-        <!-- Dépendances du Logueur -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+		<!-- Servlet Api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
+		</dependency>
 
-        <!-- Dépendances de la Servlet Api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.api.version}</version>
-        </dependency>
+		<!-- Jackson mapper -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 
-        <!-- dépendances pour jackson mapper -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
+		<!-- Mongodb -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${mongodb.version}</version>
+		</dependency>
 
-        <!-- Mongodb -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>${mongodb.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-        </dependency>
-    </dependencies>
+		<!-- Apache commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+	</dependencies>
 
 </project>

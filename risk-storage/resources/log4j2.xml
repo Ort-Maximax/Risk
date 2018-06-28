@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+	<Properties>
+		<!-- logs directory -->
+		<Property name="logDirectory">target/logs/main/</Property>
+		<Property name="rolledLogDirectory">${logDirectory}rolled/</Property>
+
+		<!-- Messages pattern -->
+		<Property name="msgPattern">%d{dd-MM-yyyy HH:mm:ss} - [%t] %-5p - %C{2} (%F:%L) --> %m%n</Property>
+
+		<!-- logs files' name -->
+		<Property name="filename">${logDirectory}risk-storage.log</Property>
+		<Property name="rolledFilename">${rolledLogDirectory}risk-storage_%d{dd-MM-yyyy}_rolled.%i.zip</Property>
+	</Properties>
+
+	<Appenders>
+		<RollingFile name="File" fileName="${filename}" filePattern="${rolledFilename}">
+			<PatternLayout pattern="${msgPattern}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="20M" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${msgPattern}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="File" />
+		</Root>
+	</Loggers>
+</Configuration>
