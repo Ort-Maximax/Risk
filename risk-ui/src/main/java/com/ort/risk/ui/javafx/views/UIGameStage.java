@@ -39,12 +39,12 @@ public class UIGameStage extends CustomStage {
 	public UIGameStage() {
 		super("Risk - Game");
         
-		currentPlayer = map.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
+		currentPlayer = game.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
 		phaseInitAttrib = false;
 		phaseInitDeploy = false;
 		
-        // Map name
-        this.setTitle(getTitle() + " - " + map.getName());
+        // Game name
+        this.setTitle(getTitle() + " - " + game.getName());
         
         // Turn label
         countTurn = 0;
@@ -56,16 +56,16 @@ public class UIGameStage extends CustomStage {
         playerLbl.setFont(new Font(playerLbl.getFont().getFamily(), 30));
         
         // Label current player order
-        currentPlayer = map.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
+        currentPlayer = game.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
         
-        // Map image
-        String imgUri = StringEscapeUtils.unescapeJava(map.getImg()).trim();
+        // Game image
+        String imgUri = StringEscapeUtils.unescapeJava(game.getImg()).trim();
         Image mapImg = new Image(imgUri);
         ImageView mapImgView = new ImageView();
         mapImgView.setImage(mapImg);
         
         // Initial Regions
-        List<Region> everyRegions = map.getRegions();
+        List<Region> everyRegions = game.getRegions();
         regionsInitialView = new ListView<String>();
         regionsInitialView.setItems(FXCollections.observableArrayList(
         		everyRegions.stream()
@@ -94,7 +94,7 @@ public class UIGameStage extends CustomStage {
 			public void handle(ActionEvent arg0) {
 				String selectedItem = regionsInitialView.selectionModelProperty().get().getSelectedItem();
 				if (selectedItem != null) {
-					Region selectedRegion = map.getRegions().stream()
+					Region selectedRegion = game.getRegions().stream()
 							.filter(r -> r.getName().equalsIgnoreCase(selectedItem))
 							.findFirst()
 							.get();
@@ -153,7 +153,7 @@ public class UIGameStage extends CustomStage {
 		GridPane.setHalignment(playersInfoLbl, HPos.LEFT);
 		mainPane.add(playersInfoLbl, 2, 1);
         
-        // Map View
+        // Game View
         GridPane.setHalignment(mapImgView, HPos.LEFT);
 		mainPane.add(mapImgView, 0, 1);
 		
@@ -177,7 +177,7 @@ public class UIGameStage extends CustomStage {
 	
 	private void updatePlayersInfoLbl() {
 		StringBuilder renderText = new StringBuilder();
-		for (Player player : map.getPlayerList()) {
+		for (Player player : game.getPlayerList()) {
 			String playerType = (player.getIsHuman()) ? "Player" : "AI";
 			renderText.append(String.format("%s no%d : %s", playerType, player.getOrder(), player.getName()));
 			renderText.append(String.format("\n%d troops", player.getNbTroops()));
@@ -191,7 +191,7 @@ public class UIGameStage extends CustomStage {
 	
 	private void updateInitRegions() {
 		regionsInitialView.setItems(FXCollections.observableArrayList(
-        		map.getRegions()
+        		game.getRegions()
         		.stream()
         		.filter(r -> !r.getIsOccupied())
         		.map(r -> r.getName())
@@ -210,11 +210,11 @@ public class UIGameStage extends CustomStage {
 	private Player nextTurn() {
 		turnLbl.setText(String.format("Turn no%d", countTurn++));
 		Player nextPlayer = null;
-		Optional<Player> nextPlayerSearch = map.getPlayerList().stream().filter(p -> p.getOrder() == currentPlayer.getOrder() + 1).findFirst();
+		Optional<Player> nextPlayerSearch = game.getPlayerList().stream().filter(p -> p.getOrder() == currentPlayer.getOrder() + 1).findFirst();
 		if (nextPlayerSearch.isPresent())
 			nextPlayer = nextPlayerSearch.get();
 		else
-			nextPlayer = map.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
+			nextPlayer = game.getPlayerList().stream().filter(p -> p.getOrder() == 1).findFirst().get();
 		playerLbl.setText("Player " + nextPlayer.getName());
 		return nextPlayer;
 	}

@@ -1,7 +1,7 @@
 package com.ort.risk.ui;
 
+import com.ort.risk.model.Game;
 import com.ort.risk.ui.console.ConsoleLauncher;
-import com.ort.risk.model.Map;
 import com.ort.risk.ui.javafx.UILauncher;
 
 /**
@@ -11,31 +11,31 @@ import com.ort.risk.ui.javafx.UILauncher;
 public class Launcher {
 
     public static void main(String[] args) {
-        Map mapObj = Map.getInstance();
+        Game gameObj = Game.getInstance();
 
         if(args.length > 0){
             switch (args[0]) {
                 //Mode console
                 case "-c":
-                    mapObj.setExMode(ExecMode.CONSOLE.value());
+                    gameObj.setExMode(ExecMode.CONSOLE.value());
                     ConsoleLauncher.run();
                     break;
                 //Mode random
                 case "-r":
-                    mapObj.setExMode(ExecMode.RANDOM.value());
+                    gameObj.setExMode(ExecMode.RANDOM.value());
                     ConsoleLauncher.run();
                     break;
                 //Mode graphique
                 case "-g":
-                	mapObj.setExMode(ExecMode.GUI.value());
+                	gameObj.setExMode(ExecMode.GUI.value());
                     UILauncher.run(args);
                     break;
                 default:
-                    mapObj.setExMode(ExecMode.CONSOLE.value());
+                    gameObj.setExMode(ExecMode.CONSOLE.value());
                     ConsoleLauncher.run();
             }
         } else {
-            mapObj.setExMode(ExecMode.CONSOLE.value());
+            gameObj.setExMode(ExecMode.CONSOLE.value());
             ConsoleLauncher.run();
         }
 

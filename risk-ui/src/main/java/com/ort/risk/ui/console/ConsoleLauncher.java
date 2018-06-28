@@ -13,7 +13,7 @@ public class ConsoleLauncher {
     public static void run() {
         System.out.println("MODE CONSOLE");
 
-        // Parse XML file into Map object
+        // Parse XML file into Game object
         Parser.prepMap();
 
         //Mode selection, and regions repartitions between the players

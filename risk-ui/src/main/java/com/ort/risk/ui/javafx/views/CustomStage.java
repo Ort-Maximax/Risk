@@ -1,6 +1,6 @@
 package com.ort.risk.ui.javafx.views;
 
-import com.ort.risk.model.Map;
+import com.ort.risk.model.Game;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 
 public class CustomStage extends Stage {
 
-	protected Map map = Map.getInstance();
+	protected Game game = Game.getInstance();
 	
 	protected GridPane mainPane;
 	

@@ -17,14 +17,14 @@ import java.io.InputStream;
 
 /**
  * @author CS
- * Parse the XML file into the Map object
+ * Parse the XML file into the Game object
  */
 public class Parser {
     public static void prepMap() {
 
     	MapFileHandler mapHandler = new MapFileHandler();
 
-        Map mapObj = Map.getInstance();
+        Game gameObj = Game.getInstance();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         /* TODO : La map doit etre importer d'apres un input de l'utilisateur, pas en dur*/
@@ -39,7 +39,7 @@ public class Parser {
             File mapXML = mapHandler.getCurrentMapFile();
             xml = builder.parse(mapXML);
             /*
-            if(mapObj.getExMode() == Launcher.ExecMode.GUI.value()){
+            if(gameObj.getExMode() == Launcher.ExecMode.GUI.value()){
                 File mapXML = mapHandler.getCurrentMapFile();
 				xml = builder.parse(mapXML);
             } else {
@@ -53,13 +53,13 @@ public class Parser {
             XPath path = xpf.newXPath();
 
             //Set map's Img, name, minimal and divider
-            setMapParams(mapObj, path, root);
+            setMapParams(gameObj, path, root);
 
             //Set map's modes
-            setMapModes(mapObj, path, root);
+            setMapModes(gameObj, path, root);
 
             //Set map's zone, that's the big boy function
-            setMapZones(mapObj, path, root);
+            setMapZones(gameObj, path, root);
 
             /* TODO : L'utilisateur choisis le modequ'il souhaite jouer*/
 
@@ -68,7 +68,7 @@ public class Parser {
             /* TODO : On crée le nombre de Player correspondant au nb du mode*/
 
             //Here we got a complete map object, and ready to play
-            //System.out.println(mapObj.toString());
+            //System.out.println(gameObj.toString());
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -76,25 +76,25 @@ public class Parser {
     }
 
 
-    protected static void setMapParams(Map mapObj, XPath path, Element root) {
+    protected static void setMapParams(Game gameObj, XPath path, Element root) {
         try {
 
             // Set the map's name
             String nameStr = (String) path.evaluate("/map/name", root);
-            mapObj.setName(nameStr);
+            gameObj.setName(nameStr);
 
             //Set the map's img url
             String imgStr = (String) path.evaluate("/map/image", root);
-            mapObj.setImg(imgStr);
+            gameObj.setImg(imgStr);
 
 
             //Set the map's minimal reinforcment
             Integer nbMin = Integer.parseInt((path.evaluate("/map/minimal", root)).trim());
-            mapObj.setNbMinReinforcement(nbMin);
+            gameObj.setNbMinReinforcement(nbMin);
 
             //Set the map's divider
             Integer nbDiv = Integer.parseInt((path.evaluate("/map/divisor", root)).trim());
-            mapObj.setDivider(nbDiv);
+            gameObj.setDivider(nbDiv);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -102,7 +102,7 @@ public class Parser {
 
     }
 
-    protected static void setMapModes(Map mapObj, XPath path, Element root) {
+    protected static void setMapModes(Game gameObj, XPath path, Element root) {
 
         try {
             //Get all <mode> from <modes>
@@ -123,8 +123,8 @@ public class Parser {
                 objMode.setNbInitTroops(nbInit);
 
                 //Add the mode to the map object
-                //mapObj.toString();
-                mapObj.addMode(objMode);
+                //gameObj.toString();
+                gameObj.addMode(objMode);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -133,7 +133,7 @@ public class Parser {
 
     }
 
-    protected static void setMapZones(Map mapObj, XPath path, Element root) {
+    protected static void setMapZones(Game gameObj, XPath path, Element root) {
 
         try {
             //Get all <zone> from <zones>
@@ -234,11 +234,11 @@ public class Parser {
                             }
 
                             objZone.addRegion(objRegion);
-                            mapObj.addRegion(objRegion);
+                            gameObj.addRegion(objRegion);
                         }
                     }
                 }
-                mapObj.addZone(objZone);
+                gameObj.addZone(objZone);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

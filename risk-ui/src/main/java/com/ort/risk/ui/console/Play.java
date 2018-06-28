@@ -3,7 +3,7 @@ package com.ort.risk.ui.console;
 import com.ort.risk.business.DeploymentAction;
 import com.ort.risk.model.*;
 import com.ort.risk.ui.Launcher.ExecMode;
-import com.ort.risk.model.Map;
+import com.ort.risk.model.Game;
 import com.ort.risk.model.Player;
 
 import java.io.BufferedReader;
@@ -21,9 +21,9 @@ public class Play {
 
 
     public static void GameLoop() {
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
-        List<Player> playerList = mapObj.getPlayerList();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
+        List<Player> playerList = gameObj.getPlayerList();
 
         //Sort the players by turn order
         playerList.sort(Comparator.comparing(Player::getOrder));
@@ -65,8 +65,8 @@ public class Play {
     }
 
     public static void InitDeployment() {
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println(
@@ -77,7 +77,7 @@ public class Play {
                         " |____|_  /___/_______  /____|__ \\\n" +
                         "        \\/            \\/        \\/");
 
-        List<Mode> allModes = mapObj.getModes();
+        List<Mode> allModes = gameObj.getModes();
         int selectedModeIndex = 0;
 
         //Random mode
@@ -158,12 +158,12 @@ public class Play {
                     isHuman = true;
                     break;
             }
-            // Add players to the map
+            // Add players to the game
 
             if(playerName.length() == 0){
                 playerName = "Player" + n;
             }
-            mapObj.addPlayer(new Player(playerName, isHuman, n, nbTroupePerPlayer));
+            gameObj.addPlayer(new Player(playerName, isHuman, n, nbTroupePerPlayer));
 
             /*System.out.println("\tNom : " + playerName);
             System.out.println("\tOrdre de passage : " + n);*/
@@ -176,13 +176,13 @@ public class Play {
 
         //Regions' attribution
         //Filter to get only the not occupied regions
-        List<Region> notOccupiedRegions = mapObj.getRegions().stream()
+        List<Region> notOccupiedRegions = gameObj.getRegions().stream()
                 .filter(p -> !p.getIsOccupied()).collect(Collectors.toList());
 
-        while (notOccupiedRegions.size() >= mapObj.getPlayerList().size() ) {
-            for (int p = 0; p < mapObj.getPlayerList().size() && notOccupiedRegions.size() > 0; p++) {
+        while (notOccupiedRegions.size() >= gameObj.getPlayerList().size() ) {
+            for (int p = 0; p < gameObj.getPlayerList().size() && notOccupiedRegions.size() > 0; p++) {
                 int selectedRegionIndex = 0;
-                Player currentPlayer = mapObj.getPlayerList().get(p);
+                Player currentPlayer = gameObj.getPlayerList().get(p);
                 //Random mode
                 if (exMode == ExecMode.RANDOM.value()) {
                     selectedRegionIndex = (int) (Math.random() * notOccupiedRegions.size());
@@ -284,8 +284,8 @@ public class Play {
 
             ConsoleLauncher.printTitle("Deploiement initial", 60, '+');
 
-            for (int q = 0; q < mapObj.getPlayerList().size(); q++) {
-                Player currentPlayer = mapObj.getPlayerList().get(q);
+            for (int q = 0; q < gameObj.getPlayerList().size(); q++) {
+                Player currentPlayer = gameObj.getPlayerList().get(q);
                 List<Region> playerRegions = currentPlayer.getControlledRegions();
                 int selectedRegionIndex = 0;
                 int nbTroopsToDeploy = 0;
@@ -328,7 +328,7 @@ public class Play {
 		                    		{
 		                    			f = frontierR.get(j);
 		                    			String regionEndName = f.getRegionEndName();
-		                    			boolean isOccupied = mapObj.getRegionByName(regionEndName).getIsOccupied();
+		                    			boolean isOccupied = gameObj.getRegionByName(regionEndName).getIsOccupied();
 		                    			if(isOccupied == true && r.getDeployedTroops() == 1)
 		                    			{
 		                    				selectedRegionIndex = i;
@@ -396,8 +396,8 @@ public class Play {
         //Random mode
         if (exMode == ExecMode.RANDOM.value()) {
             /* TODO  : A CHANGER - Le déploiement se fait de façon random, en attendant l'interface graphique */
-            for (int q = 0; q < mapObj.getPlayerList().size(); q++) {
-                Player currentPlayer = mapObj.getPlayerList().get(q);
+            for (int q = 0; q < gameObj.getPlayerList().size(); q++) {
+                Player currentPlayer = gameObj.getPlayerList().get(q);
                 while (currentPlayer.getNbTroops() > 0) {
                     int rand = (int) (Math.random() * currentPlayer.getControlledRegions().size());
                     currentPlayer.getControlledRegions().get(rand).changeDeployedTroops(1);
@@ -428,9 +428,9 @@ public class Play {
     }
 
     public static void printPlayerRegions() {
-        Map mapObj = Map.getInstance();
+        Game gameObj = Game.getInstance();
         //For each player
-        for (Player p : mapObj.getPlayerList()) {
+        for (Player p : gameObj.getPlayerList()) {
             System.out.println(p.getName());
             List<Region> playerRegions = p.getControlledRegions();
 
@@ -442,11 +442,11 @@ public class Play {
             System.out.println("\n");
         }
 
-        List<Region> a = mapObj.getRogueRegions();
-        if(mapObj.getRogueRegions().size() > 0) {
+        List<Region> a = gameObj.getRogueRegions();
+        if(gameObj.getRogueRegions().size() > 0) {
             System.out.println("Regions sauvage");
 
-            for (Region r : mapObj.getRogueRegions()) {
+            for (Region r : gameObj.getRogueRegions()) {
                 System.out.println("\t" + r.getName() + " : " + r.getDeployedTroops());
 
             }

@@ -101,9 +101,9 @@ public class Frontier {
 	}
 
 	public boolean isReinforcementFrontier(Player player){
-		Map mapObj = Map.getInstance();
+		Game gameObj = Game.getInstance();
 		//Predicate<Region> rEnd = e -> e.getName().equalsIgnoreCase(this.getRegionEndName());
-		Region regionEnd = mapObj.getRegionByName(this.getRegionEndName());
+		Region regionEnd = gameObj.getRegionByName(this.getRegionEndName());
 
 		//If the player control both the end region
 		if(player.getControlledRegions().contains(regionEnd) && regionEnd.getDeployedTroops() > 1){
@@ -120,9 +120,9 @@ public class Frontier {
 
 
 	public Region getWarTarget(Player player){
-		Map mapObj = Map.getInstance();
-		Region endRegion = mapObj.getRegionByName(this.getRegionEndName());
-		List<Region> allRegions = mapObj.getRegions();
+		Game gameObj = Game.getInstance();
+		Region endRegion = gameObj.getRegionByName(this.getRegionEndName());
+		List<Region> allRegions = gameObj.getRegions();
 
 		//If the player doesnt control a region with that name
 		if(!player.getControlledRegions().contains(endRegion)){
@@ -148,9 +148,9 @@ public class Frontier {
 
 
 	public Region getReinforcementTarget(Player player){
-		Map mapObj = Map.getInstance();
-		Region regionEnd = mapObj.getRegionByName(this.getRegionEndName());
-		List<Region> allRegions = mapObj.getRegions();
+		Game gameObj = Game.getInstance();
+		Region regionEnd = gameObj.getRegionByName(this.getRegionEndName());
+		List<Region> allRegions = gameObj.getRegions();
 
 		//If the player control the end region
 		if(player.getControlledRegions().contains(regionEnd) && regionEnd.getDeployedTroops() > 1){
