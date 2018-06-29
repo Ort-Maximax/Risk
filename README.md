@@ -20,6 +20,8 @@ Les deux modes principaux (console et GUI) ont un launcher propre, qui s'execute
 
 Chaque mode gère les itérations de son coté, mais utilisent des classes et fonctions communes, afin que le fonctionnement du jeu reste le même quel que soit le mode.
 
+L'application peut aussi être déployé dans un environnement web.
+
 ### Livrable
 Code source de l'application à compiler par vos soin.
 Un fichier de configuration à paramétrer (config.properties) :
