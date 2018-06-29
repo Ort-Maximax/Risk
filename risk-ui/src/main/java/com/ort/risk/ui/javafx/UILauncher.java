@@ -3,7 +3,7 @@ package com.ort.risk.ui.javafx;
 import com.ort.risk.ui.Launcher;
 import com.ort.risk.storage.MapFileHandler;
 import com.ort.risk.storage.Parser;
-import com.ort.risk.model.Map;
+import com.ort.risk.model.Game;
 import com.ort.risk.ui.javafx.views.UIModeStage;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * @author tibo
  *
  * Main Launcher
- * Map selector
+ * Game selector
  */
 public class UILauncher extends Application {
 
@@ -46,7 +46,7 @@ public class UILauncher extends Application {
     private Label mapFileFileChooserLabel;
 	private ChoiceBox<String> savedMapChoiceBox;
 	
-	private Map map = Map.getInstance();
+	private Game game = Game.getInstance();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -76,7 +76,7 @@ public class UILauncher extends Application {
         root.getColumnConstraints().addAll(column1, column2);
 		
         fileNameLabel = new Label();
-        mapChooserInput = new Button("Choose a map");
+        mapChooserInput = new Button("Choose a game");
         loadMapButton = new Button("Load");
 
 		List<File> mapFiles = mapFileHandler.getSavedMapFiles();
@@ -90,7 +90,7 @@ public class UILauncher extends Application {
 			for (File file : mapFiles)
 				mapMapFiles.put(file.getName(), file);
 			
-			mapFileFileChooserLabel = new Label("Choose a saved map");
+			mapFileFileChooserLabel = new Label("Choose a saved game");
 			savedMapChoiceBox = new ChoiceBox<String>(FXCollections.observableArrayList(
 					mapMapFiles.keySet().stream().sorted().collect(Collectors.toList())));
 
@@ -140,7 +140,7 @@ public class UILauncher extends Application {
 		public void handle(ActionEvent arg0) {
 			mapFileHandler.saveMap(choosedMapFile);
 			mapFileHandler.moveMapFileToCurrent(choosedMapFile);
-			map.setExMode(Launcher.ExecMode.GUI.value());
+			game.setExMode(Launcher.ExecMode.GUI.value());
 			Parser.prepMap();
 			new UIModeStage().getDisplay(300, 300);
 		}
@@ -152,7 +152,7 @@ public class UILauncher extends Application {
 		@Override
 		public void handle(ActionEvent arg0) {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open the map XML file");
+			fileChooser.setTitle("Open the game XML file");
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML", "*.xml"));
 			File fileToUpload = fileChooser.showOpenDialog(stage);
 			if (fileToUpload != null) {

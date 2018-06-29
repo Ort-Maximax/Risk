@@ -1,0 +1,30 @@
+<div *ngIf="map$ | async as map">
+  <h2>Map {{map.name | uppercase}} detail</h2>
+  <div>
+    <span>id: </span>
+    {{map.id}}
+  </div>
+  <div>
+    <label>
+      name:
+      <input
+        [(ngModel)]="map.name"
+        placeholder="name"
+      >
+    </label>
+  </div>
+  <div>
+    <label>
+      url:
+      <input
+        [(ngModel)]="map.url"
+        placeholder="url"
+      >
+    </label>
+    <div>
+      <img [src]="map.url">
+    </div>
+  </div>
+  <button (click)="back()">Back</button>
+  <button (click)="save(map)">Save</button>
+</div>

@@ -33,8 +33,8 @@ public class War {
     }
 
     public static void execute(Player player) {
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
 
         List<Region> warStartRegions = player.getWarRegions();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -274,7 +274,7 @@ public class War {
                             }
 
 
-                            Region endRegion = mapObj.getRegionByName(endRegionName);
+                            Region endRegion = gameObj.getRegionByName(endRegionName);
 
                             int nbDef = 0;
 
@@ -287,7 +287,7 @@ public class War {
                             }
 
                             if (!r) {
-                                Player defPlayer = mapObj.getOwnerOfRegion(endRegion);
+                                Player defPlayer = gameObj.getOwnerOfRegion(endRegion);
 
                                 System.out.println("\n" + defPlayer.getName() + ", combien de troupes vont defendre l'attaque ?");
                                 if (exMode == Launcher.ExecMode.CONSOLE.value()) {

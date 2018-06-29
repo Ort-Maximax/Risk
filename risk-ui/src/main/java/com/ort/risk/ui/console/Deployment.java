@@ -16,11 +16,11 @@ import java.util.List;
 public class Deployment {
 
     public static void execute(Player player) {
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int min = mapObj.getNbMinReinforcement();
+        int min = gameObj.getNbMinReinforcement();
         int nbDeployMax = DeploymentAction.calcMaxDeploy(player);
         List<Region> playerRegions = player.getControlledRegions();
         //System.out.println(nbRenfort);

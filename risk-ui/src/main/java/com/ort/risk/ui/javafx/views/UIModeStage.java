@@ -55,7 +55,7 @@ public class UIModeStage extends CustomStage {
         // Building mode selecter
         modeChoiceBoxLabel = new Label("Choose a mode");
 		HashMap<String, Mode> mapModes = new HashMap<String, Mode> ();
-		for (Mode mode : map.getModes()) {
+		for (Mode mode : game.getModes()) {
 			String computedMode = String.format("%s - %s", mode.getNbPlayer(), mode.getNbInitTroops());
 			mapModes.put(computedMode, mode);
 		}
@@ -104,14 +104,14 @@ public class UIModeStage extends CustomStage {
 				List<Node> textFields = playersFieldsPane.getChildren().stream()
 						.filter(n -> (n instanceof TextField))
 						.collect(Collectors.toList());
-				Mode selectedMode = map.getModes().stream().filter(m -> m.getIsSelected()).findFirst().get();
+				Mode selectedMode = game.getModes().stream().filter(m -> m.getIsSelected()).findFirst().get();
 				if (selectedMode != null) {
 					for ( Node playerTextField : textFields ) {
 						TextField tf = (TextField) playerTextField;
 						String name = (tf.getText().length() > 0) ? tf.getText() : String.format("Player %d", textFields.indexOf(playerTextField) + 1);
 						players.add(new Player(name, true, textFields.indexOf(playerTextField) + 1, selectedMode.getNbInitTroops()));
 					}
-					map.setPlayerList(players);
+					game.setPlayerList(players);
 					
 					UIGameStage nextStage = new UIGameStage();
 					Screen screen = Screen.getPrimary();

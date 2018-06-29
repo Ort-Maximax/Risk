@@ -1,7 +1,7 @@
 package com.ort.risk.ui.console;
 
+import com.ort.risk.model.Game;
 import com.ort.risk.ui.Launcher;
-import com.ort.risk.model.Map;
 import com.ort.risk.model.Player;
 
 import java.io.BufferedReader;
@@ -13,8 +13,8 @@ import java.io.InputStreamReader;
  */
 public class Turn {
     public static void TakeTurn(Player currentPlayer){
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         ConsoleLauncher.printTitle("DEBUT DU TOUR DE " + currentPlayer.getName(), 60, '=' ) ;

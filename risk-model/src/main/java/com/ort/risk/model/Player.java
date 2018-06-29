@@ -13,14 +13,23 @@ import java.util.List;
  */
 public class Player {
 
+	private int id;
     private String name;
     private int order;
     private int nbTroops;
     private boolean isHuman;
 
     private List<Region> controlledRegions = new ArrayList<Region>();
+    
+    public int getId() {
+		return id;
+	}
 
-    public void setName(String name) {
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
         this.name = name;
     }
 

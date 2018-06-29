@@ -30,8 +30,8 @@ public class Reinforcement {
     }
 
     public static void execute(Player player) {
-        Map mapObj = Map.getInstance();
-        int exMode = mapObj.getExMode();
+        Game gameObj = Game.getInstance();
+        int exMode = gameObj.getExMode();
         List<Region> reinforcementRegions = player.getReinforcementRegions();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -186,7 +186,7 @@ public class Reinforcement {
 
                         String endRegionName = allReinfProviders.get(selectedEndRegionIndex).getName();
 
-                        Region endRegion = mapObj.getRegionByName(endRegionName);
+                        Region endRegion = gameObj.getRegionByName(endRegionName);
 
                         Move reinfMove = startRegion.getFrontierReinfMove(endRegionName);
 
