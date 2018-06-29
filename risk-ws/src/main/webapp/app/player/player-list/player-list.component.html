@@ -1,0 +1,29 @@
+<h2>
+  Player list
+</h2>
+
+<div>
+  <label>
+    Name:
+    <input #name />
+  </label>
+  <button (click)="add(name.value); name.value=''">
+    Add
+  </button>
+</div>
+
+<ul class="players">
+  <li *ngFor="let player of players">
+    <a routerLink="/player/{{player.id}}">
+      <span class="badge">
+        {{player.id}}
+      </span>
+      {{player.name}}
+    </a>
+    <button
+      class="remove"
+      title="Remove"
+      (click)="remove(player)"
+    >X</button>
+  </li>
+</ul>

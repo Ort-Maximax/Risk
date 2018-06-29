@@ -19,26 +19,27 @@ public class MapRepository implements IRepository<Map> {
 
     @Override
     public List<Map> getAll() {
-        return mongoOps.findAll(Map.class);
+    	List<Map> maps = mongoOps.findAll(Map.class);
+        return maps;
     }
 
     @Override
     public Map get(Long id) {
-        return mongoOps.findOne(new Query(where("id").is(id)), Map.class);
+        return mongoOps.findOne(new Query(where("_id").is(id)), Map.class);
     }
 
     @Override
     public void create(Map recording) {
-
+    	mongoOps.insert(recording);
     }
 
     @Override
     public void delete(Map recording) {
-
+    	mongoOps.remove(recording);
     }
 
     @Override
     public void update(Map recording) {
-
+    	mongoOps.save(recording);
     }
 }

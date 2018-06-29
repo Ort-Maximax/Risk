@@ -1,0 +1,33 @@
+<h2>
+  Map list
+</h2>
+
+<div>
+  <label>
+    Name:
+    <input #name />
+  </label>
+  <label>
+      URL:
+      <input #url />
+    </label>
+    <button (click)="add(name.value, url.value); name.value=''; url.value=''">
+    Add
+  </button>
+</div>
+
+<ul class="maps">
+  <li *ngFor="let map of maps">
+    <a routerLink="/map/{{map.id}}">
+      <span class="badge">
+        {{map.id}}
+      </span>
+      {{map.name}}
+    </a>
+    <button
+      class="remove"
+      title="Remove"
+      (click)="remove(map)"
+    >X</button>
+  </li>
+</ul>

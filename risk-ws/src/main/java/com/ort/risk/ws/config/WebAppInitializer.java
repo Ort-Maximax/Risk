@@ -28,7 +28,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		//D�claration du distapcher de servlet
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/api");
+		dispatcher.addMapping("/api/*");
 
 	}
 

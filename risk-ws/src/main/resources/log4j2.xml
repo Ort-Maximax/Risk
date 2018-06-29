@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="OFF">
+<Configuration status="WARN">
 	<Properties>
 		<!-- logs directory -->
-		<Property name="logDirectory">target/logs/main/</Property>
+		<Property name="logDirectory">logs/</Property>
 		<Property name="rolledLogDirectory">${logDirectory}rolled/</Property>
 
 		<!-- Messages pattern -->

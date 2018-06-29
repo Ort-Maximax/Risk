@@ -32,20 +32,17 @@ public class PlayerRepository implements IRepository<Player> {
 
 	@Override
 	public void create(Player recording) {
-		// TODO Auto-generated method stub
-		
+		mongoOps.insert(recording);		
 	}
 
 	@Override
 	public void delete(Player recording) {
-		// TODO Auto-generated method stub
-		
+		mongoOps.remove(recording);
 	}
 
 	@Override
 	public void update(Player recording) {
-		// TODO Auto-generated method stub
-		
+		mongoOps.save(recording);
 	}
 
 }

@@ -1,0 +1,13 @@
+<div id="search-component">
+  <h4>Map search</h4>
+
+  <input #searchBox class="search-box" (keyup)="next(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let map of maps$ | async" >
+      <a routerLink="/map/{{map.id}}">
+        {{map.name}}
+      </a>
+    </li>
+  </ul>
+</div>
