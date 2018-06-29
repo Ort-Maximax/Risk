@@ -72,11 +72,11 @@ Version du 29/06/2018 :
  - Déployée dans un .war
  - Les données de la WebApp sont stockées dans une bdd NoSQL (MongoDB). Nous n'avons pas eu le temps d'en déployer une sur un serveur (localhost uniquement).
  - Fonctionnalitées présentes :
-  - Paramétrage de la servlet
-  - Repository des maps et players (Non fonctionnels)
-  - Controlleurs (players & maps) (routes fonctionnelles)
-  - Logger
-  - Pas de tests unitaires
+   - Paramétrage de la servlet
+   - Repository des maps et players (Non fonctionnels)
+   - Controlleurs (players & maps) (routes fonctionnelles)
+   - Logger
+   - Pas de tests unitaires
 
 Le traitements des données n'est pas fonctionnel.
 Le logger ne fonctionne qu'en console (les fichiers de logs ne sont pas créés). NB : ce problème ne survient qu'en environnement web (sur une application classique java, les fichiers de logs sont créés).
