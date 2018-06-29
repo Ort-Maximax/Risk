@@ -77,6 +77,7 @@ Version du 29/06/2018 :
   - Controlleurs (players & maps) (routes fonctionnelles)
   - Logger
   - Pas de tests unitaires
+
 Le traitements des données n'est pas fonctionnel.
 Le logger ne fonctionne qu'en console (les fichiers de logs ne sont pas créés). NB : ce problème ne survient qu'en environnement web (sur une application classique java, les fichiers de logs sont créés).
 Pour accéder aux ressources je suis obligé d'indiquer un chemin absolu.
